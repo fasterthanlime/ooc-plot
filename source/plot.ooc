@@ -27,7 +27,6 @@ main: func(argc: Int, argv: String*) {
 	cr paint()
 	
 	// prepare pen color and width
-	cr setSourceRGB(1, 0, 0)
 	cr setLineWidth(2)
 	
 	// compute half width and half height and create our view
@@ -35,9 +34,21 @@ main: func(argc: Int, argv: String*) {
 	hh := 4.
 	view := View new(cr, w, h) .setViewport(Range new(-hw, hw), Range new(-hh, hh))
 	
+	range := Range new(-hw, hw)
+	precision := 0.001
+	
 	// initialize
-	formula := LuaFormula new("scripts/formula.lua")
-	view plotXY(Range new(-hw, hw), 0.1, formula)
+	cr setSourceRGB(1, 0, 0)
+	view plotXY(range, precision, LuaFormula new("scripts/formula.lua"))
+	
+	cr setSourceRGB(0, 0, 1)
+	view plotXY(range, precision, LuaFormula new("scripts/formula2.lua"))
+	
+	cr setSourceRGB(0, 1, 0)
+	view plotXY(range, precision, LuaFormula new("scripts/formula3.lua"))
+	
+	cr setSourceRGB(1, 1, 0)
+	view plotXYParam(range, precision, LuaFormulaParam new("scripts/formulaparam.lua"))
 	
 	fileName := "output/graphic.png"
     surface writeToPng(fileName)
