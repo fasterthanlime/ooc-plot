@@ -1,1 +1,13 @@
-A simple plotter written in ooc, using cairo
+A simple plotter written in ooc, using cairo for the drawing and Lua as a scripting language.
+
+Depends on
+  * http://github.com/amoswenger/ooc Latest ooc
+  * http://github.com/fredreichbier/ooc-cairo Latest cairo bindings
+  * http://github.com/fredreichbier/ooc-lua Latest lua bindings
+
+Usage:  plot [width height]
+
+Outputs a png in output/graphic.png
+
+Reads the lua file in scripts/formula.lua and attemps to call function compute() with one
+Number argument, expects one Number back.
