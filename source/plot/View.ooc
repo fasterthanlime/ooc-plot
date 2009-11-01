@@ -1,9 +1,9 @@
-import cairo/Cairo, Range, Formula, FormulaParam, Point2d
+import cairo/Cairo, Ranged, Formula, FormulaParam, Point2d
 
 View: class {
 	
 	cr : Context
-	winx, winy : Range
+	winx, winy : Ranged
 	w, h : Double
 	
 	init: func (=cr, =w, =h) {}
@@ -11,7 +11,7 @@ View: class {
 	/**
 	* Plot an f(x) = y function on a 2D canvas
 	*/
-	plotXY: func (xrange : Range, step: Double, f: Formula) {
+	plotXY: func (xrange : Ranged, step: Double, f: Formula) {
 		
 		moveTo(xrange min, f compute(xrange min))
 		
@@ -28,7 +28,7 @@ View: class {
 	/**
 	* Plot an f(t) = (x, y) function on a 2D canvas
 	*/
-	plotXYParam: func (trange : Range, step: Double, f: FormulaParam) {
+	plotXYParam: func (trange : Ranged, step: Double, f: FormulaParam) {
 		
 		first := f compute(trange min)
 		moveTo(first x, first y)

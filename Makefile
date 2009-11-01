@@ -1,7 +1,7 @@
 .PHONY: clean all
 
 all:
-	ooc plot -g -sourcepath=./source:../ooc-cairo/:../ooc-lua -shout
+	ooc plot -g -v -nolines -sourcepath=./source:../ooc-cairo/:../ooc-lua -shout
 
 test:
 	make all && ./plot && feh output/graphic.png

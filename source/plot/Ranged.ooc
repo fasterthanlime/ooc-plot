@@ -1,4 +1,4 @@
-Range: class {
+Ranged: class {
 	
 	min, max: Double
 	
@@ -13,7 +13,7 @@ Range: class {
 	length: func -> Double { max - min }
 	
 	repr: func -> String {
-		return "(" + min repr() + ", " + max repr() + ")"
+		return "(" + min toString() + ", " + max toString() + ")"
 	}
 	
 }

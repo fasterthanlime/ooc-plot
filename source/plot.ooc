@@ -1,5 +1,7 @@
+use lua, cairo
+
 import lua/State, cairo/Cairo
-import plot/[LuaFormula, Range, View]
+import plot/[LuaFormula, Ranged, View]
 include math
 
 cos: extern func (Double) -> Double
@@ -15,12 +17,13 @@ main: func(argc: Int, argv: String*) {
 		w = argv[1] as String toInt()
 		h = argv[2] as String toInt()
 	} else {
+		printf("Hint: you can specify the width and height of the output image with %s <width> <height>\n", argv[0])
 		w = 500
 		h = 500
 	}
 	
 	surface := ImageSurface new(0, w, h) /* 0 = CAIRO_FORMAT_ARGB32 */
-    cr := Context new(surface)
+	cr := Context new(surface)
 	
 	// clear screen to black
 	cr setSourceRGB(0, 0, 0)
@@ -32,9 +35,9 @@ main: func(argc: Int, argv: String*) {
 	// compute half width and half height and create our view
 	hw := PI * 2
 	hh := 4.
-	view := View new(cr, w, h) .setViewport(Range new(-hw, hw), Range new(-hh, hh))
+	view := View new(cr, w, h) .setViewport(Ranged new(-hw, hw), Ranged new(-hh, hh))
 	
-	range := Range new(-hw, hw)
+	range := Ranged new(-hw, hw)
 	precision := 0.001
 	
 	// initialize
@@ -51,6 +54,8 @@ main: func(argc: Int, argv: String*) {
 	view plotXYParam(range, precision, LuaFormulaParam new("scripts/formulaparam.lua"))
 	
 	fileName := "output/graphic.png"
-    surface writeToPng(fileName)
+	surface writeToPng(fileName)
+    printf("Wrote image to \"%s\"\n", fileName)
+    printf("Have a good day!\n")
 	
 }
